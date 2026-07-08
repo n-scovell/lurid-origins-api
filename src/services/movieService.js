@@ -4,7 +4,6 @@ export const movieService = {
   // GET ALL with filters
   getAll: async (filters) => {
     const { watched, era, tag, search } = filters;
-
     return prisma.movie.findMany({
       where: {
         ...(watched !== undefined && {

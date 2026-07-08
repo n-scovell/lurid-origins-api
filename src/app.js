@@ -1,6 +1,6 @@
 import express from "express";
 import { corsMiddleware } from "./_cors.js";
-import movieRoutes from "./routes/movieRoutes.js";
+import movieRoutes from "./routes/movieRoutes.js"; 
 
 const app = express();
 
