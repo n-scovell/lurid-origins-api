@@ -46,7 +46,6 @@ export const movieService = {
         year: data.year,
       },
     });
-    
     if (existing) {
       throw new Error(`${data.movie} from ${data.year} is already made`);
     }
