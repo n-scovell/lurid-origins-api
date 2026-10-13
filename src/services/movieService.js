@@ -20,6 +20,10 @@ export const movieService = {
           },
         }),
 
+        ...(year && {
+          year: Number(year),
+        }),
+
         ...(search && {
           movie: {
             contains: search,

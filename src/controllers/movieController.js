@@ -1,5 +1,5 @@
 import { movieService } from "../services/movieService.js";
-import { movieSchema } from "../schemas/movieSchema.js";
+import { movieSchema } from "../schemas/movieSchema.js"; 
 
 export const movieController = {
   
