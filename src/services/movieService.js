@@ -44,6 +44,8 @@ export const movieService = {
   // },
 
   create: async (req, res) => {
+    console.log("Content-Type:", req.headers["content-type"]);
+    console.log("Request body:", req.body);
     if (
       !process.env.LO_API_KEY ||
       req.body.action !== process.env.LO_API_KEY
