@@ -44,29 +44,28 @@ export const movieService = {
   // },
 
   create: async (req, res) => {
-    if (!process.env.LO_API_KEY || req.body.action !== process.env.LO_API_KEY) {
-      return res.status(401).json({
-        error: "Unauthorized",
-      });
+    if (
+      !process.env.LO_API_KEY ||
+      req.body.action !== process.env.LO_API_KEY
+    ) {
+      return res.status(401).json({ error: "Unauthorized" });
     }
 
     const { action, ...movieData } = req.body;
 
+    const parsed = movieSchema.safeParse(movieData);
+
+    if (!parsed.success) {
+      return res.status(400).json({
+        errors: parsed.error.flatten().fieldErrors,
+      });
+    }
+
     try {
-      const parsed = movieSchema.safeParse(movieData);
-
-      if (!parsed.success) {
-        return res.status(400).json({
-          errors: parsed.error.flatten().fieldErrors,
-        });
-      }
-
       const movie = await movieService.create(parsed.data);
       return res.status(201).json(movie);
     } catch (err) {
-      return res.status(500).json({
-        error: "Failed to create movie",
-      });
+      return res.status(500).json({ error: "Failed to create movie" });
     }
   },
 
