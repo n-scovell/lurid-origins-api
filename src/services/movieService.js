@@ -3,7 +3,7 @@ import { prisma } from "../prisma.js";
 export const movieService = {
   // GET ALL with filters
   getAll: async (filters) => {
-    const { watched, era, year, tag, search } = filters;
+    const { watched, era, movie, year, tag, search } = filters;
     return prisma.movie.findMany({
       where: {
         ...(watched !== undefined && {
@@ -12,6 +12,10 @@ export const movieService = {
 
         ...(era && {
           era,
+        }),
+
+        ...(movie && {
+          movie,
         }),
 
         ...(tag && {
