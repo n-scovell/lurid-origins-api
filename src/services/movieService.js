@@ -33,7 +33,7 @@ export const movieService = {
       !process.env.LO_API_KEY ||
       data.action !== process.env.LO_API_KEY
     ) {
-      return res.status(401).jason({ error: "Unauthorized" });
+      return
     }
     const existing = await prisma.movie.findFirst({
       where: {
