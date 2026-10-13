@@ -9,31 +9,11 @@ export const movieService = {
         ...(watched !== undefined && {
           watched: watched === "true",
         }),
-
-        ...(era && {
-          era,
-        }),
-
-        ...(movie && {
-          movie,
-        }),
-
-        ...(tag && {
-          tags: {
-            has: tag,
-          },
-        }),
-
-        ...(year && {
-          year: Number(year),
-        }),
-
-        ...(search && {
-          movie: {
-            contains: search,
-            mode: "insensitive",
-          },
-        }),
+        ...(era && { era, }),
+        ...(movie && { movie, }),
+        ...(tag && { tags: { has: tag, }, }),
+        ...(year && { year: Number(year), }),
+        ...(search && { movie: { contains: search, mode: "insensitive", }, }),
       },
       orderBy: {
         createdAt: "desc",
