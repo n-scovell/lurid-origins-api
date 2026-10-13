@@ -44,7 +44,7 @@ export const movieService = {
   // },
 
   create: async (req, res) => {
-    if (!process.env.ADMIN_API_KEY || req.body.action !== process.env.ADMIN_API_KEY) {
+    if (!process.env.LO_API_KEY || req.body.action !== process.env.LO_API_KEY) {
       return res.status(401).json({
         error: "Unauthorized",
       });
