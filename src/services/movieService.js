@@ -29,6 +29,12 @@ export const movieService = {
   },
 
   create: async (data) => {
+    if (
+      !process.env.LO_API_KEY ||
+      req.body.action !== process.env.LO_API_KEY
+    ) {
+      return res.status(401).jason({ error: "Unauthorized" });
+    }
     const existing = await prisma.movie.findFirst({
       where: {
         movie: data.movie,
@@ -44,13 +50,11 @@ export const movieService = {
   },
 
   // create: async (req, res) => {
-  //   console.log("Content-Type:", req.headers["content-type"]);
-  //   console.log("Request body:", req.body);
   //   if (
   //     !process.env.LO_API_KEY ||
   //     req.body.action !== process.env.LO_API_KEY
   //   ) {
-  //     return res.status(401).json({ error: "Unauthorized" });
+  //     return res.status(401).jason({ error: "Unauthorized" });
   //   }
 
   //   const { action, ...movieData } = req.body;
