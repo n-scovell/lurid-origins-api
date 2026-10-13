@@ -12,7 +12,8 @@ export const movieService = {
         ...(era && { era, }),
         ...(movie && {movie: {contains: movie, mode: "insensitive",}, }),
         ...(tag && { tags: { has: tag, }, }),
-        ...(year && { year: Number(year), }),
+        // ...(year && { year: Number(year), }),
+        ...(year && {year: {contains: year, mode: "insensitive",}, }),
         ...(search && { movie: { contains: search, mode: "insensitive", }, }),
       },
       orderBy: {
