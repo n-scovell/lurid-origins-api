@@ -28,19 +28,46 @@ export const movieService = {
     });
   },
 
-  create: async (data) => {
-    const existing = await prisma.movie.findFirst({
-      where: {
-        movie: data.movie,
-        year: data.year,
-      },
-    });
-    if (existing) {
-      throw new Error(`${data.movie} from ${data.year} is already made`);
+  // create: async (data) => {
+  //   const existing = await prisma.movie.findFirst({
+  //     where: {
+  //       movie: data.movie,
+  //       year: data.year,
+  //     },
+  //   });
+  //   if (existing) {
+  //     throw new Error(`${data.movie} from ${data.year} is already made`);
+  //   }
+  //   return await prisma.movie.create({
+  //     data,
+  //   });
+  // },
+
+  create: async (req, res) => {
+    if (!process.env.ADMIN_API_KEY || req.body.action !== process.env.ADMIN_API_KEY) {
+      return res.status(401).json({
+        error: "Unauthorized",
+      });
     }
-    return await prisma.movie.create({
-      data,
-    });
+
+    const { action, ...movieData } = req.body;
+
+    try {
+      const parsed = movieSchema.safeParse(movieData);
+
+      if (!parsed.success) {
+        return res.status(400).json({
+          errors: parsed.error.flatten().fieldErrors,
+        });
+      }
+
+      const movie = await movieService.create(parsed.data);
+      return res.status(201).json(movie);
+    } catch (err) {
+      return res.status(500).json({
+        error: "Failed to create movie",
+      });
+    }
   },
 
   update: async (id, data) => {
