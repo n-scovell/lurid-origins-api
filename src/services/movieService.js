@@ -10,7 +10,7 @@ export const movieService = {
           watched: watched === "true",
         }),
         ...(era && { era, }),
-        ...(movie && { movie, }),
+        ...(movie && {movie: {contains: movie, mode: "insensitive",}, }),
         ...(tag && { tags: { has: tag, }, }),
         ...(year && { year: Number(year), }),
         ...(search && { movie: { contains: search, mode: "insensitive", }, }),
