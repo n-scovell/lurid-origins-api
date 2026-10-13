@@ -29,12 +29,6 @@ export const movieService = {
   },
 
   create: async (data) => {
-    if (
-      !process.env.LO_API_KEY ||
-      data.action !== process.env.LO_API_KEY
-    ) {
-      return
-    }
     const existing = await prisma.movie.findFirst({
       where: {
         movie: data.movie,
