@@ -50,7 +50,7 @@ export const movieController = {
       body.action !== process.env.LO_API_KEY
     ) {
       return res.status(401).json({
-        error: "Unauthorized",
+         error: "Incorrect password. Please try again.",
       });
     }
     const { action, ...movieData } = body;
