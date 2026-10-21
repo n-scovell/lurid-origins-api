@@ -44,7 +44,7 @@ export const movieController = {
       });
     }
     if (!process.env.LO_API_KEY || body.action !== process.env.LO_API_KEY) {
-      return res.status(800).json({
+      return res.status(401).json({
          error: "Incorrect password. Please try again.",
       });
     }
