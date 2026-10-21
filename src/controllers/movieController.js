@@ -37,19 +37,14 @@ export const movieController = {
   // },
 
   create: async (req, res) => {
-    console.log("Request body:", req.body);
-    console.log("Content type:", req.headers["content-type"]);
     const body = req.body;
     if (!body || typeof body !== "object") {
       return res.status(400).json({
         error: "Missing request body",
       });
     }
-    if (
-      !process.env.LO_API_KEY ||
-      body.action !== process.env.LO_API_KEY
-    ) {
-      return res.status(401).json({
+    if (!process.env.LO_API_KEY || body.action !== process.env.LO_API_KEY) {
+      return res.status(800).json({
          error: "Incorrect password. Please try again.",
       });
     }
